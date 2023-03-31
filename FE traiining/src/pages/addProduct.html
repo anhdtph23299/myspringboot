@@ -1,0 +1,99 @@
+<section>
+  <div class="row mb-3">
+    <div class="col-2"></div>
+    <div class="col-2">Name</div>
+    <div class="col-5">
+      <input type="text" class="form-control" ng-model="product.productName" />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-2"></div>
+    <div class="col-2">Color</div>
+    <div class="col-5">
+      <input type="text" class="form-control" ng-model="product.color" />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-2"></div>
+    <div class="col-2">Quantity</div>
+    <div class="col-5">
+      <input type="text" class="form-control" ng-model="product.quantity" />
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-2"></div>
+    <div class="col-2">Sell Price</div>
+    <div class="col-5">
+      <input type="text" class="form-control" ng-model="product.sellPrice" />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-2"></div>
+    <div class="col-2">Origin Price</div>
+    <div class="col-5">
+      <input type="text" class="form-control" ng-model="product.originPrice" />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-2"></div>
+    <div class="col-2">Brand Name</div>
+    <div class="col-5">
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        ng-model="product.brand"
+        ng-options="brand as brand.brandName for brand in listBrand"
+      ></select>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-2"></div>
+    <div class="col-2">Subcategory</div>
+    <div class="col-5">
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        ng-model="product.idSubCate"
+      >
+        <option ng-value="{{x.id}}" ng-repeat="x in listSubcategory">
+          {{x.subCateName}}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-2"></div>
+    <div class="col-2">Status</div>
+    <div class="col-5">
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        ng-model="product.idStatus"
+      >
+        <option ng-value="{{x.id}}" ng-repeat="x in listStatus">
+          {{x.statusName}}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-2"></div>
+    <div class="col-2">Mô Tả</div>
+    <div class="col-5">
+      <div class="form-floating">
+        <textarea
+          class="form-control"
+          placeholder="Leave a comment here"
+          id="floatingTextarea2"
+          style="height: 100px"
+          ng-model="product.description"
+        ></textarea>
+        <label for="floatingTextarea2">Description</label>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <!-- <button type="button" class="btn btn-success">Save Changes</button> -->
+  <a href="#" class="btn btn-dark" ng-click="addProduct($event)">Thêm</a>
+</section>

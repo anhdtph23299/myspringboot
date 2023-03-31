@@ -1,0 +1,49 @@
+CREATE TABLE brand (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    brand_name varchar(100)
+    );
+ CREATE table category ( 
+    id bigint AUTO_INCREMENT PRIMARY key ,
+     category_code varchar(20),
+     cate_name varchar(50)
+     );
+create table status(
+    id bigint AUTO_INCREMENT PRIMARY key,
+    status_name varchar(100)
+    );
+create table sub_category(
+    id bigint AUTO_INCREMENT PRIMARY key,
+    sub_cate_code varchar(20),
+    sub_cate_name varchar(50),
+    cate_id bigint ,
+    FOREIGN key (cate_id) REFERENCES Category(id)
+    );
+create table product(
+    id bigint AUTO_INCREMENT PRIMARY key,
+    subcate_id bigint not null,
+    product_name varchar(100),
+    color varchar(50),
+    quantity bigint ,
+    sell_price double,
+    origin_price double ,
+    description varchar(1000),
+    status_id bigint,
+    FOREIGN key (subcate_id) REFERENCES sub_category(id),
+    FOREIGN key (status_id) REFERENCES status(id)
+    );
+create table product_brand(
+    product_id bigint not null,
+    brand_id bigint not null,
+    FOREIGN key (product_id) REFERENCES product(id),
+    FOREIGN key (brand_id) REFERENCES brand(id),
+    PRIMARY key (product_id,brand_id)
+    )
+
+ALTER DATABASE training CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE product CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE brand CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE category CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE product_brand CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE status CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE sub_category CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+SHOW FULL COLUMNS FROM product

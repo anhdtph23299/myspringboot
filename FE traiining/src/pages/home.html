@@ -1,0 +1,79 @@
+<section>
+  <div class="row mt-4">
+    <div class="col">
+      <p>Name</p>
+      <input type="text" class="form-control" />
+    </div>
+    <div class="col">
+      <p>Price</p>
+      <input type="number" class="form-control" />
+    </div>
+    <div class="col">
+      <p>Brand</p>
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        ng-model="product.brand"
+      >
+        <option ng-repeat="x in listBrand" value="x.id">{{x.brandName}}</option>
+      </select>
+    </div>
+    <div class="col">
+      <p>Category</p>
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        ng-options="list.cateName for list in listCategory"
+        ng-model="category"
+      ></select>
+    </div>
+    <div class="col">
+      <p>Status</p>
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        ng-options="list.statusName for list in listStatus"
+        ng-model="status"
+      ></select>
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-success mt-4">Search</button>
+    </div>
+  </div>
+  <a href="#product/add" class="btn btn-success mt-4">Add product</a>
+</section>
+<section>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">NO</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Brand Name</th>
+        <th scope="col">Subcategory</th>
+        <th scope="col">Price</th>
+        <th scope="col">Status</th>
+        <th scope="col">Funtion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="x in listProduct">
+        <th scope="row">{{x.id}}</th>
+        <td>{{x.productName}}</td>
+        <td>{{x.brand.brandName}}</td>
+        <td>{{x.subCategory.subCateName}}</td>
+        <td>{{x.originPrice}}</td>
+        <td>{{x.status.statusName}}</td>
+        <td>
+          <a href="#product/update/{{$index}}" class="btn btn-primary">Sửa</a>
+          <button
+            type="button"
+            class="btn btn-primary"
+            ng-click="xoaProduct($event,$index)"
+          >
+            Xoá
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
