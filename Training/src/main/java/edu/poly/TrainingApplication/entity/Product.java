@@ -1,13 +1,8 @@
 package edu.poly.TrainingApplication.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,13 +13,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -33,8 +30,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "product")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@ToString
+@Table(name = "product",uniqueConstraints={@UniqueConstraint(columnNames={"product_name"})})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product {
     public Product(Long id, SubCategory subCategory, String productName, String color, Long quantity, double sellPrice, double originPrice, String description, Status status) {
@@ -55,25 +52,34 @@ public class Product {
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     @JoinColumn(name = "subcate_id")
+    @NotNull(message = "Subcategory không được null")
     private SubCategory subCategory;
-    @Column(name = "product_name")
+    @Column(name = "product_name",unique = true)
+    @NotBlank(message = "Tên Product không đưc trống")
+    @NotNull
     private String productName;
+    @NotBlank(message = "Tên color không đưc trống")
+    @NotNull(message = "Màu sắc không được null")
     private String color;
-
+    @Min(value = 0,message = "Số lượng phải không âm")
     private Long quantity;
     @Column(name = "sell_price")
-    private double sellPrice;
+    @Min(value = 1,message = "Giá phải lớn hơn 0")
+    private Double sellPrice;
     @Column(name = "origin_price")
-    private double originPrice;
+    @Min(value = 1,message = "Giá phải lớn hơn 0")
+    private Double originPrice;
 
+    @NotBlank(message = "Mô tả không được để trống")
     private String description;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JsonIgnore
+    @NotNull(message = "Status không được trống")
     private Status status;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @JsonIgnore
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<ProductBrand> listProductBrand;
 
     @JsonProperty("status")
@@ -87,6 +93,7 @@ public class Product {
     }
 
     @JsonProperty("brand")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Brand getBrand() {
         if (listProductBrand.isEmpty()) {
             return null;

@@ -2,11 +2,11 @@
   <div class="row mt-4">
     <div class="col">
       <p>Name</p>
-      <input type="text" class="form-control" />
+      <input type="text" class="form-control" ng-model="product.productName"/>
     </div>
     <div class="col">
       <p>Price</p>
-      <input type="number" class="form-control" />
+      <input type="number" class="form-control" ng-model="product.sellPrice" />
     </div>
     <div class="col">
       <p>Brand</p>
@@ -15,7 +15,7 @@
         aria-label="Default select example"
         ng-model="product.brand"
       >
-        <option ng-repeat="x in listBrand" value="x.id">{{x.brandName}}</option>
+        <option ng-repeat="x in listBrand" value="x">{{x.brandName}}</option>
       </select>
     </div>
     <div class="col">
@@ -24,7 +24,7 @@
         class="form-select"
         aria-label="Default select example"
         ng-options="list.cateName for list in listCategory"
-        ng-model="category"
+        ng-model="product.category"
       ></select>
     </div>
     <div class="col">
@@ -33,7 +33,7 @@
         class="form-select"
         aria-label="Default select example"
         ng-options="list.statusName for list in listStatus"
-        ng-model="status"
+        ng-model="product.status"
       ></select>
     </div>
     <div class="col">

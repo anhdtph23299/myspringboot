@@ -24,7 +24,7 @@ public class ProductBrandServiceimpl implements ProductBrandService {
 
     @Override
     public void delete(ProductBrand productBrand) {
-        productBrandRepo.delete(productBrand);
+        productBrandRepo.deleteProductBrandByProductAndBrand(productBrand.getProduct(),productBrand.getBrand());
     }
 
     @Override

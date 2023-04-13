@@ -12,11 +12,12 @@ window.homeController = function ($scope, $http, $location, myService) {
     brand: { id: 0, brandName: "" },
   };
 
+  $scope.listProduct = {};
+
   var url = "http://localhost:8080";
   $scope.addProduct = function (event) {
     event.preventDefault();
     $http.post(url + "/product/add", $scope.product).then(function (response) {
-      $scope.listProduct.push(response.data);
       getProductList();
     });
     $location.path("/");
@@ -41,6 +42,9 @@ window.homeController = function ($scope, $http, $location, myService) {
   });
   myService.listSubcategory().then(function (data) {
     $scope.listSubcategory = data;
+  });
+  myService.listCategory().then(function (data) {
+    $scope.listCategory = data;
   });
   myService.listBrand().then(function (data) {
     $scope.listBrand = data;

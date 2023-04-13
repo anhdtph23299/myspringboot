@@ -1,7 +1,9 @@
 <section>
   <div class="row mb-3">
     <div class="col-2"></div>
-    <div class="col-2">Name</div>
+    <div class="col-2">
+      Name
+    </div>
     <div class="col-5">
       <input type="text" class="form-control" ng-model="product.productName" />
     </div>
@@ -43,8 +45,15 @@
         class="form-select"
         aria-label="Default select example"
         ng-model="product.brand"
-        ng-options="brand as brand.brandName for brand in listBrand"
-      ></select>
+      >
+        <option
+          ng-value="{{x}}"
+          ng-repeat="x in listBrand"
+          ng-selected="x.id == product.brand.id"
+        >
+          {{x.brandName}}
+        </option>
+      </select>
     </div>
   </div>
   <div class="row mb-3">

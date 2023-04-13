@@ -1,7 +1,4 @@
 var app = angular.module("myApp", ["ngRoute"]);
-var URL =
-  "http://nhlwc.cdnak.neulion.com/fs1/nhl/league/teamroster/NJD/iphone/clubroster.json";
-
 app.config(function ($routeProvider, $locationProvider) {
   $locationProvider.hashPrefix("");
   $routeProvider
@@ -48,6 +45,8 @@ app.service("myService", function ($http) {
       return response.data;
     });
   };
+
+
 });
 
 // app.run(function ($rootScope, $http) {

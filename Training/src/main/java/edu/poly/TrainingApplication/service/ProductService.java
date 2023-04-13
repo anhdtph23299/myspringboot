@@ -13,4 +13,11 @@ public interface ProductService {
     Product insertOrUpdateProduct(Product product);
     void deleteProduct(Product product);
 
+    List<ProductCustom> getProductCustom();
+
+
+//    ListInterface
+
+//     ArrayList
+//      Stack
 }

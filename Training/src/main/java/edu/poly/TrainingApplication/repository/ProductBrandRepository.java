@@ -1,5 +1,6 @@
 package edu.poly.TrainingApplication.repository;
 
+import edu.poly.TrainingApplication.entity.Brand;
 import edu.poly.TrainingApplication.entity.Product;
 import edu.poly.TrainingApplication.entity.ProductBrand;
 import jakarta.transaction.Transactional;
@@ -19,4 +20,11 @@ public interface ProductBrandRepository extends JpaRepository<ProductBrand,Long>
     @Transactional
     @Query(value = "update ProductBrand pb set pb.product =:product where pb.product.id =:idProduct and pb.brand.id =:idBrand")
     void updateProductBrand(@Param("product")Product product, @Param("idBrand")Long idBrand, @Param("idProduct")Long idProduct);
+
+    void deleteProductBrandByProductAndBrand(Product product, Brand brand);
+
+    @Modifying
+    @Transactional
+    @Query(value = "Delete from ProductBrand p where p.product.id = :id")
+    void deleteProductBrandIdProduct(@Param("id") Long idProduct);
 }
