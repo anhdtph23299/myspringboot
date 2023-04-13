@@ -39,10 +39,9 @@ window.updateProductController = function (
     console.log($scope.idbrandChuaUpdate);
     var c =
       url + "/product/update/" + $scope.id + "/" + $scope.idbrandChuaUpdate;
-    $http.put(c, $scope.product).then(function (response) {
-      // getProductList();
-    });
+    $http.put(c, $scope.product).then(function (response) {});
     $location.path("/");
+    getProductList();
   };
   myService.listStatus().then(function (data) {
     $scope.listStatus = data;

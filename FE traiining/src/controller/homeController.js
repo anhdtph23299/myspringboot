@@ -27,7 +27,9 @@ window.homeController = function ($scope, $http, $location, myService) {
     event.preventDefault();
     var id = $scope.listProduct[index].id;
     $http
-      .delete(url + "/product/delete/" + id + "&" + $scope.product.brand.id)
+      .delete(
+        url + "/product/delete/" + id + "&" + $scope.listProduct[index].brand.id
+      )
       .then(function (response) {
         getProductList();
       });

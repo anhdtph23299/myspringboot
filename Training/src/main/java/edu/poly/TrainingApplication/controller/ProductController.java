@@ -73,8 +73,15 @@ public class ProductController {
 
     @DeleteMapping("delete/{id}&{idBrand}")
     public void deleteProduct(@PathVariable(name = "id") String id, @PathVariable(name = "idBrand") String idBrand) {
-        Long idUrd = Long.parseLong(id);
-        Long idBrandUrl = Long.parseLong(idBrand);
+        long idUrd;
+        long idBrandUrl;
+        try{
+            idUrd = Long.parseLong(id);
+            idBrandUrl = Long.parseLong(idBrand);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
         productBrandService.deleteByProductId(idUrd, idBrandUrl);
         Product product = productService.getProductById(idUrd);
         productService.deleteProduct(product);
